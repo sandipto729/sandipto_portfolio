@@ -30,12 +30,14 @@ jobs:
             echo "Checking project directory..."
             if [ ! -d "$PROJECT_DIR/.git" ]; then
               echo "Repository not found. Cloning..."
-              # Using HTTPS avoids SSH host key verification issues
               git clone https://github.com/sandipto729/sandipto_portfolio.git $PROJECT_DIR
             else
-              echo "Repository found. Pulling latest changes..."
+              echo "Repository found. Fetching latest changes..."
               cd $PROJECT_DIR
-              git pull origin main
+              
+              # Safely force the VM repo to match GitHub exactly without failing on local edits
+              git fetch origin main
+              git reset --hard origin/main
             fi
 
             echo "Moving to project directory..."
