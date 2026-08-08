@@ -1,2 +1,4 @@
 .env
 post.html
+
+k8s/01-secrets.yaml

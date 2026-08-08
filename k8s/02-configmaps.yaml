@@ -7,3 +7,5 @@ data:
   QDRANT_URL: "http://qdrant-service:6333"
   AI_BACKEND_URL: "http://ai-backend-service:8000"
   NEXTAUTH_URL: "https://sandipto.in"
+  NODE_ENV: "production"
+  PYTHONUNBUFFERED: "1"
