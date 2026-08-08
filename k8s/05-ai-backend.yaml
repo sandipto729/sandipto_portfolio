@@ -13,6 +13,8 @@ spec:
       labels:
         app: ai-backend
     spec:
+      imagePullSecrets:
+        - name: ghcr-secret
       containers:
         - name: ai-backend
           image: ghcr.io/sandipto729/portfolio-ai-backend:latest

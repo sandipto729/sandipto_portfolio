@@ -3,9 +3,8 @@ kind: Ingress
 metadata:
   name: portfolio-ingress
   namespace: sandipto-portfolio
-  annotations:
-    kubernetes.io/ingress.class: nginx
 spec:
+  ingressClassName: nginx
   rules:
     - host: sandipto.in
       http:
