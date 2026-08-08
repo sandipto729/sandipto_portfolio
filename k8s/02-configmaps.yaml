@@ -6,4 +6,4 @@ metadata:
 data:
   QDRANT_URL: "http://qdrant-service:6333"
   AI_BACKEND_URL: "http://ai-backend-service:8000"
-  NEXTAUTH_URL: "http://sandipto.in"
+  NEXTAUTH_URL: "https://sandipto.in"

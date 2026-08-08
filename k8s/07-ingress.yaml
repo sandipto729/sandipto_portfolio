@@ -5,6 +5,11 @@ metadata:
   namespace: sandipto-portfolio
 spec:
   ingressClassName: traefik
+  tls:
+    - hosts:
+        - sandipto.in
+        - www.sandipto.in
+      secretName: sandipto-tls-secret
   rules:
     - host: sandipto.in
       http:

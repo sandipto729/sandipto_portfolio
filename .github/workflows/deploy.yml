@@ -44,7 +44,7 @@ jobs:
             MONGODB_URI=mongodb://portfolio_user:portfolio_pass@mongodb-service:27017/portfolio?authSource=admin
             AI_BACKEND_URL=http://ai-backend-service:8000
             NEXTAUTH_SECRET=your-secret-key-change-this-in-production
-            NEXTAUTH_URL=http://sandipto.in
+            NEXTAUTH_URL=https://sandipto.in
             NEXT_PUBLIC_TURNSTILE_SITE_KEY=0x4AAAAAADHu-jf3fUSYI1za
           tags: |
             ghcr.io/${{ github.repository_owner }}/portfolio-frontend:latest
@@ -74,8 +74,8 @@ jobs:
             kubectl set image deployment/frontend frontend=ghcr.io/${{ github.repository_owner }}/portfolio-frontend:${{ github.sha }} -n sandipto-portfolio
 
             echo "Waiting for rollout completion..."
-            kubectl rollout status deployment/ai-backend -n sandipto-portfolio --timeout=120s
-            kubectl rollout status deployment/frontend -n sandipto-portfolio --timeout=120s
+            kubectl rollout status deployment/ai-backend -n sandipto-portfolio --timeout=300s
+            kubectl rollout status deployment/frontend -n sandipto-portfolio --timeout=300s
 
             echo "Deployment completed successfully!"
             kubectl get pods -n sandipto-portfolio
