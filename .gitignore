@@ -2,3 +2,4 @@
 post.html
 
 k8s/01-secrets.yaml
+k8s/08-*
