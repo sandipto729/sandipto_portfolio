@@ -20,46 +20,32 @@ jobs:
           port: 7576
           username: deploy
           key: ${{ secrets.VM_SSH_KEY }}
-
+          script_stop: true # Stops execution if any command fails
           script: |
+            set -e # Exit immediately if a command exits with a non-zero status
             echo "Connected to VM"
 
             PROJECT_DIR="/home/deploy/sandipto_portfolio"
 
             echo "Checking project directory..."
-
             if [ ! -d "$PROJECT_DIR/.git" ]; then
               echo "Repository not found. Cloning..."
-
-              git clone git@github.com:sandipto729/sandipto_portfolio.git $PROJECT_DIR
-
+              # Using HTTPS avoids SSH host key verification issues
+              git clone https://github.com/sandipto729/sandipto_portfolio.git $PROJECT_DIR
             else
               echo "Repository found. Pulling latest changes..."
-
               cd $PROJECT_DIR
-
               git pull origin main
             fi
 
-
             echo "Moving to project directory..."
-
             cd $PROJECT_DIR
 
-
             echo "Stopping old containers..."
-
             docker compose down
 
-
             echo "Building and starting containers..."
-
             docker compose up -d --build
 
-
             echo "Deployment completed successfully"
-
-
-            echo "Current running containers:"
-
             docker ps
