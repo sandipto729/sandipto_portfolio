@@ -22,39 +22,16 @@ jobs:
           key: ${{ secrets.VM_SSH_KEY }}
           script_stop: true # Stops execution if any command fails
           script: |
-            set -ex # 'e' exits on error, 'x' prints every command it executes for debugging
             echo "Connected to VM"
+            cd /home/deploy/sandipto_portfolio
 
-            PROJECT_DIR="/home/deploy/sandipto_portfolio"
-            
-            # Print directory permissions to the console to verify ownership
-            ls -ld "$PROJECT_DIR" || true
+            echo "Pulling latest changes from main..."
+            git fetch origin main
+            git reset --hard origin/main
 
-            echo "Checking project directory..."
-            if [ ! -d "$PROJECT_DIR/.git" ]; then
-              echo "Repository not found or uninitialized. Initializing in-place..."
-              mkdir -p "$PROJECT_DIR"
-              cd "$PROJECT_DIR"
-              git init
-              git remote add origin https://github.com/sandipto729/sandipto_portfolio.git || true
-              git fetch origin main
-              git reset --hard origin/main
-              git branch -M main
-            else
-              echo "Repository found. Fetching latest changes..."
-              cd "$PROJECT_DIR"
-              git fetch origin main
-              git reset --hard origin/main
-            fi
-
-            echo "Moving to project directory..."
-            cd "$PROJECT_DIR"
-
-            echo "Stopping old containers..."
+            echo "Restarting Docker containers..."
             docker compose down
-
-            echo "Building and starting containers..."
             docker compose up -d --build
 
-            echo "Deployment completed successfully"
+            echo "Deployment completed successfully!"
             docker ps
