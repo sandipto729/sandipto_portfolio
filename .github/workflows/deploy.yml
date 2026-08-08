@@ -21,6 +21,9 @@ jobs:
           username: ${{ secrets.VM_USER }}
           key: ${{ secrets.VM_SSH_KEY }}
           script: |
+            mkdir -p ~/sandipto_portfolio
+            cd ~/sandipto_portfolio
+            
             if [ ! -d "/home/deploy/_Portfolio_" ]; then
               echo "Portfolio directory not found. Cloning repository..."
 
