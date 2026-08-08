@@ -29,19 +29,23 @@ jobs:
 
             echo "Checking project directory..."
             if [ ! -d "$PROJECT_DIR/.git" ]; then
-              echo "Repository not found. Cloning..."
-              git clone https://github.com/sandipto729/sandipto_portfolio.git $PROJECT_DIR
+              echo "Repository not found or uninitialized. Initializing in-place..."
+              mkdir -p "$PROJECT_DIR"
+              cd "$PROJECT_DIR"
+              git init
+              git remote add origin https://github.com/sandipto729/sandipto_portfolio.git || true
+              git fetch origin main
+              git reset --hard origin/main
+              git branch -M main
             else
               echo "Repository found. Fetching latest changes..."
-              cd $PROJECT_DIR
-              
-              # Safely force the VM repo to match GitHub exactly without failing on local edits
+              cd "$PROJECT_DIR"
               git fetch origin main
               git reset --hard origin/main
             fi
 
             echo "Moving to project directory..."
-            cd $PROJECT_DIR
+            cd "$PROJECT_DIR"
 
             echo "Stopping old containers..."
             docker compose down
