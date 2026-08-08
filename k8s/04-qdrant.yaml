@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: qdrant
-  namespace: sandipto_portfolio
+  namespace: sandipto-portfolio
 spec:
   serviceName: qdrant-service
   replicas: 1
@@ -38,7 +38,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: qdrant-service
-  namespace: sandipto_portfolio
+  namespace: sandipto-portfolio
 spec:
   ports:
     - port: 6333

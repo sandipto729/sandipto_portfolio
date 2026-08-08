@@ -70,12 +70,12 @@ jobs:
             kubectl apply -f k8s/
 
             echo "Rolling out latest image deployments..."
-            kubectl set image deployment/ai-backend ai-backend=ghcr.io/${{ github.repository_owner }}/portfolio-ai-backend:${{ github.sha }} -n sandipto_portfolio
-            kubectl set image deployment/frontend frontend=ghcr.io/${{ github.repository_owner }}/portfolio-frontend:${{ github.sha }} -n sandipto_portfolio
+            kubectl set image deployment/ai-backend ai-backend=ghcr.io/${{ github.repository_owner }}/portfolio-ai-backend:${{ github.sha }} -n sandipto-portfolio
+            kubectl set image deployment/frontend frontend=ghcr.io/${{ github.repository_owner }}/portfolio-frontend:${{ github.sha }} -n sandipto-portfolio
 
             echo "Waiting for rollout completion..."
-            kubectl rollout status deployment/ai-backend -n sandipto_portfolio --timeout=120s
-            kubectl rollout status deployment/frontend -n sandipto_portfolio --timeout=120s
+            kubectl rollout status deployment/ai-backend -n sandipto-portfolio --timeout=120s
+            kubectl rollout status deployment/frontend -n sandipto-portfolio --timeout=120s
 
             echo "Deployment completed successfully!"
-            kubectl get pods -n sandipto_portfolio
+            kubectl get pods -n sandipto-portfolio
