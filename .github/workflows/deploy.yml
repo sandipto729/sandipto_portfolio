@@ -21,22 +21,19 @@ jobs:
           username: ${{ secrets.VM_USER }}
           key: ${{ secrets.VM_SSH_KEY }}
           script: |
-            if [ ! -d "${{ secrets.VM_PATH }}" ]; then
-              echo "Directory does not exist. Cloning repository..."
+            if [ ! -d "/home/deploy/_Portfolio_" ]; then
+              echo "Portfolio directory not found. Cloning repository..."
 
-              mkdir -p $(dirname "${{ secrets.VM_PATH }}")
-              git clone https://github.com/<USERNAME>/<REPO_NAME>.git "${{ secrets.VM_PATH }}"
+              git clone https://github.com/sandipto729/_Portfolio_.git /home/deploy/_Portfolio_
 
-              cd "${{ secrets.VM_PATH }}"
+              cd /home/deploy/_Portfolio_
             else
-              echo "Directory exists. Pulling latest changes..."
+              echo "Portfolio directory exists. Updating code..."
 
-              cd "${{ secrets.VM_PATH }}"
+              cd /home/deploy/_Portfolio_
               git pull origin main
             fi
 
-            echo "Restarting Docker containers..."
+            echo "Deploying Docker containers..."
 
-            docker compose down
-            docker compose build
-            docker compose up -d
+            docker compose up -d --build
