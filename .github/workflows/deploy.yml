@@ -22,10 +22,13 @@ jobs:
           key: ${{ secrets.VM_SSH_KEY }}
           script_stop: true # Stops execution if any command fails
           script: |
-            set -e # Exit immediately if a command exits with a non-zero status
+            set -ex # 'e' exits on error, 'x' prints every command it executes for debugging
             echo "Connected to VM"
 
             PROJECT_DIR="/home/deploy/sandipto_portfolio"
+            
+            # Print directory permissions to the console to verify ownership
+            ls -ld "$PROJECT_DIR" || true
 
             echo "Checking project directory..."
             if [ ! -d "$PROJECT_DIR/.git" ]; then
