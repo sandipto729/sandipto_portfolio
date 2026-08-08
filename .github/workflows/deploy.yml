@@ -18,23 +18,25 @@ jobs:
         with:
           host: ${{ secrets.VM_HOST }}
           port: 7576
-          username: ${{ secrets.VM_USER }}
+          username: deploy
           key: ${{ secrets.VM_SSH_KEY }}
 
           script: |
             echo "Connected to VM"
 
-            echo "Checking deployment directory..."
+            PROJECT_DIR="/home/deploy/sandipto_portfolio"
 
-            if [ ! -d "/home/deploy/_Portfolio_" ]; then
+            echo "Checking project directory..."
+
+            if [ ! -d "$PROJECT_DIR/.git" ]; then
               echo "Repository not found. Cloning..."
 
-              git clone git@github.com:sandipto729/_Portfolio_.git /home/deploy/_Portfolio_
+              git clone git@github.com:sandipto729/sandipto_portfolio.git $PROJECT_DIR
 
             else
               echo "Repository found. Pulling latest changes..."
 
-              cd /home/deploy/_Portfolio_
+              cd $PROJECT_DIR
 
               git pull origin main
             fi
@@ -42,7 +44,7 @@ jobs:
 
             echo "Moving to project directory..."
 
-            cd /home/deploy/_Portfolio_
+            cd $PROJECT_DIR
 
 
             echo "Stopping old containers..."
